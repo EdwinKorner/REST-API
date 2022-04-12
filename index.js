@@ -45,22 +45,20 @@ app.get('/api/persons', (req, res)=>{
     res.send(persons);
 });
 
-//Validering av objekt när man använder post. Jag använder joi för validering
+//Validering för 404 Not found error
+app.get('/api/persons/:id', (req, res)=>{
+    const person = persons.find(c => c.id === parseInt(req.params.id));
+    if (!person) return res.status(404).send('The person was not found');
+    res.send(person);
+});
+
+//Här använder jag mig av funktionen "validatePerson" som jag har gjort längre ner i koden
+//Jag använder mig av denna funktionen på fler ställen i koden
 app.post('/api/persons', (req, res) => {
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        age: Joi.string().required(),
-        city: Joi.string().required()
-    });
+    const { error } = validatePerson(req.body);
 
-    const result = schema.validate(req.body);
-
-    //Validering för error 400 Bad request error
-
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
+    if(error) return res.status(400).send(error.details[0].message);
+    
 
     //Ett objekt som gör att id ökar med 1 varje gång man postar
     //Objektet har även de andra egenskaperna så att man inte kan posta utan att skriva in alla egenskaper
@@ -76,16 +74,48 @@ app.post('/api/persons', (req, res) => {
 
 });
 
-//Validering för 404 Not found error
-app.get('/api/persons/:id', (req, res)=>{
+//Kod för att redigera objekten
+app.put('/api/persons/:id', (req, res)=>{
+
     const person = persons.find(c => c.id === parseInt(req.params.id));
-    if (!person) res.status(404).send('The person was not found');
+    if (!person) return res.status(404).send('The person was not found');
+    
+    const { error } = validatePerson(req.body);
+
+    if(error) return res.status(400).send(error.details[0].message);
+        
+
+    person.name = req.body.name;
+    person.age = req.body.age;
+    person.city = req.body.city;
     res.send(person);
 });
 
-app.put('/api/persons/:id', (req, res)=>{
+//En funktion för validering av objekt. Jag använder joi för validering
+function validatePerson(person) {
 
-});
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        city: Joi.string().required(),
+        age: Joi.string().required()
+    });
+
+    return schema.validate(person);
+
+}
+
+//Kod för att ta bort ett objekt ur persons arrayen
+app.delete('/api/persons/:id', (req, res) => {
+
+    const person = persons.find(c => c.id === parseInt(req.params.id));
+    if (!person) return res.status(404).send('The person was not found');
+
+    const index = persons.indexOf(person);
+    persons.splice(index, 1);
+
+    res.send(person);
+
+})
 
 //Väljer en port som är tillgänglig. Standard porten är 3000
 const port = process.env.PORT || 3000
