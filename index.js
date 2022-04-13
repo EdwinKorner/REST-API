@@ -37,7 +37,7 @@ const persons = [
 ]
 //Första sidan som skickar ett simpelt meddelande
 app.get('/', (req, res) => {
-    res.send('Hello world!!');
+    res.send('Gå till /api/persons för att se de olika objekten');
 });
 
 //En sida som skickar alla objekt i arrayen "persons"
