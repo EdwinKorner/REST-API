@@ -11,7 +11,7 @@ API:et består av fyra endpoints:
 * POST
 * PUT
 
-Med dessa endpoints kan man hämta information, ta bort objekt, redigera objekt och lägga till objekt från API:et.
+Med dessa endpoints kan man hämta information, ta bort objekt, redigera objekt och lägga till objekt i API:et.
 
 ## Nodemon och Joi
 
