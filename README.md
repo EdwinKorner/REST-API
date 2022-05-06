@@ -30,16 +30,7 @@ För att starta programmet kör du
 ``` nodemon index.js ```
 
 ## När programmet är igång
-För att se programmet i din webbläsare går du in på localhost: följt av porten som skrivs ut i terminalen.
-Första sidan består endast av en ensam string.
-
-För att se alla objekt på samma sida går man till http://localhost:3000/api/persons
-
-För att se ett ensamt objekt går man till http://localhost:3000/api/persons/ följt av en siffra, från början finns det 4 olika objekt.
-
-## Testning av API
-
-Jag använde mig av Postman för att testa mitt API men man kan även använda sig av andra program för att testa API:et.
+När programmet är igång kan du testa API:et med hjälp av .rest filen. Där finns möjligheten att lägga till, redigera, tabort och hämta information från API:et.
 
 ## Errors
 Det finns 2 olika errors man kan stöta på:

@@ -1,0 +1,33 @@
+### GET request
+//Med GET hämtar du alla objekt som finns.
+GET http://localhost:3000/api/persons/
+
+### POST request
+//Med POST kan du lägga till ett nytt objekt.
+POST http://localhost:3000/api/persons/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Test",
+    "age": "15",
+    "city": "Ljungskile"
+}
+
+### PUT request
+//Med PUT kan du redigera ett objekt som redan finns, ändra ID i slutet av
+//länken till det objektet du vill ändra på.
+PUT http://localhost:3000/api/persons/36647
+Content-Type: application/json
+
+{
+    "name": "Test2",
+    "age": "32",
+    "city": "Ljungskile"
+}
+
+### DELETE request
+//Med DELETE kan du ta bort ett objekt som finns, ändra ID i slutet av länken
+//till det objektet du vill ta bort.
+DELETE http://localhost:3000/api/persons/36647 HTTP/1.1
+Content-Type: application/json
+
